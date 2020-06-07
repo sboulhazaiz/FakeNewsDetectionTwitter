@@ -1,8 +1,8 @@
 import os
 from requests_oauthlib import OAuth1Session
 
-consumer_key = 'hertAn2zPggjBwFf5W92bWPv8'  # Add your API key here
-consumer_secret = '7AoLj0E0x6yR2YiA1bdyxnL7jG47INZCDyvl4VlC10rsgKVPXW'  # Add your API secret key here
+consumer_key = '*'  # Add your API key here
+consumer_secret = '*'  # Add your API secret key here
 
 
 def getoauth():
