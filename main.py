@@ -54,6 +54,7 @@ class GetTweet:
 
 print("TEST DEBUG")
 
+
 api = twitter.Api(application_only_auth=True, consumer_key=twitter_credentials.CONSUMER_KEY, consumer_secret=twitter_credentials.CONSUMER_SECRET, access_token_key=twitter_credentials.ACCESS_TOKEN, access_token_secret=twitter_credentials.ACCESS_TOKEN_SECRET)
 #print(api.VerifyCredentials())
 """user = api.GetUser(screen_name='RebeuDeter')
