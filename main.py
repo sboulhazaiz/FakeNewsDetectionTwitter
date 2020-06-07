@@ -1,4 +1,6 @@
 import json
+from json import JSONDecoder
+
 import twitter
 
 from time import sleep
@@ -8,6 +10,8 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 from auth import getoauth
+from analyze_functions import DetectHTcomplot
+from twitter_credentials import *
 
 import twitter_credentials
 
@@ -50,20 +54,21 @@ class GetTweet:
 
 print("TEST DEBUG")
 
-consumer_key = 'hertAn2zPggjBwFf5W92bWPv8'  # Add your API key here
-consumer_secret = '7AoLj0E0x6yR2YiA1bdyxnL7jG47INZCDyvl4VlC10rsgKVPXW'  # Add your API secret key here
-token = '1228505037049094145-ZeEXdDPE7YLcOuXfQeuUcsmg3y4GbP'
-token_secret = 'f9WLfejO2yUlGhyJnuUJ4RU9mU71XwXqSDsYhvSNd0nWG'
-
-api = twitter.Api(application_only_auth=True, consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=token, access_token_secret=token_secret)
+api = twitter.Api(application_only_auth=True, consumer_key=twitter_credentials.CONSUMER_KEY, consumer_secret=twitter_credentials.CONSUMER_SECRET, access_token_key=twitter_credentials.ACCESS_TOKEN, access_token_secret=twitter_credentials.ACCESS_TOKEN_SECRET)
 #print(api.VerifyCredentials())
 """user = api.GetUser(screen_name='RebeuDeter')
 print(user.name)"""
 """tweetsBillchien = api.GetUserTimeline(count=15)
 print([s.text for s in tweetsBillchien])"""
 
-tweetsUserLouche = api.GetSearch(raw_query='f=tweets&l=fr&q={(from:joyeusespaques2) (%23KohLanta2020) OR (%23BlackLivesMatter)}', include_entities=True)
-print([s.text for s in tweetsUserLouche])
+#tweetsUserLouche = api.GetSearch(raw_query='f=tweets&l=fr&q={(from:joyeusespaques2) (%23KohLanta2020) OR (%23BlackLivesMatter)}', include_entities=True)
+tweetsUserLouche = DetectHTcomplot(api, 'pierre_1er')
+dec = JSONDecoder()
+#print(tweetsUserLouche)
+#tab = dec.decode(tweetsUserLouche)
+# A REMETTRE print([s.text for s in tweetsUserLouche])
+print(hashtags utilisés : )
+
 
 #print(api.GetReplies('Elfion'))
 
