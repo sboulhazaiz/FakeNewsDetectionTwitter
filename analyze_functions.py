@@ -1,3 +1,6 @@
+import sys
+import time
+
 def DetectHTcomplot(api, user):
     liste_ht = '%23GrandRemplacement OR %23Soros OR %23BushDid911 OR %23ChinaDidCovid OR %23ChinaDidCovid19 OR %23pizzagates'
 
@@ -22,7 +25,9 @@ def FolloweesAnalysis(api, list_followees):
         if DetectHTcomplot(api, followee):
             fakenewser=+1
         i+=1
-        print('abonnements analysés : '+str(i)+'/'+number_followees_str)
+        sys.stdout.write("\r{0}".format('abonnements analysés : '+str(i)+'/'+number_followees_str)) #dynamic display of progression
+        sys.stdout.flush()
+        #print('abonnements analysés : '+str(i)+'/'+number_followees_str)
     taux = (fakenewser/number_followees)*100
-    print('Ce compte follow '+str(taux)+'% de compte qui propagent des fake news')
+    print('\n Ce compte follow '+str(taux)+'% de compte qui propagent des fake news')
     return taux

@@ -9,7 +9,6 @@ from requests_oauthlib import OAuth1Session
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
-from auth import getoauth
 from analyze_functions import DetectHTcomplot, FolloweesAnalysis
 from twitter_credentials import *
 
@@ -48,8 +47,8 @@ followees_array = []
 i = 0
 for followee in followees_object:
     followees_array.append(followee.screen_name)
-    print(followees_array[i]+' ---- i ='+str(i))
-    i+=1
+    #print(followees_array[i]+' ---- i ='+str(i))
+    #i+=1
 taux_comptes_fakenews = FolloweesAnalysis(api, followees_array)
 
 
