@@ -1,5 +1,6 @@
 import sys
 import time
+import re
 from googleapiclient.discovery import build
 import pprint
 
@@ -31,7 +32,7 @@ def FolloweesAnalysis(api, list_followees):
         sys.stdout.flush()
         #print('abonnements analysés : '+str(i)+'/'+number_followees_str)
     taux = (fakenewser/number_followees)*100
-    print('\n Ce compte follow '+str(taux)+'% de compte qui propagent des fake news')
+    print('\n Ce compte follow %.2f'% taux +'% de compte qui propagent des fake news')
     return taux
 
 
@@ -41,10 +42,11 @@ def google_search(search_term, api_key, cse_id, **kwargs):
     return res['items']
 
 def filterkeywords (query): #filter the query to keep only the keywords
-    stopwords = ['le', 'la', 'un', 'une', 'au', 'aux', 'les', 'pour', 'sur'] #list of words to be filtered out (in french)
+    stopwords = ['le', 'la', 'un', 'une', 'au', 'aux', 'les', 'pour', 'sur', '‼️'] #list of words to be filtered out (in french)
     querywords = query.split() #spliting the query in list of words
     resultwords  = [word for word in querywords if word.lower() not in stopwords] #filtering out the words
     result = ' '.join(resultwords) #
+    result = text = re.sub(r'http\S+', '', result)
     return result
 
 def google_search(search_term, api_key, cse_id, **kwargs):

@@ -34,7 +34,7 @@ print([s.text for s in tweetsBillchien])"""
 
 # tweetsUserLouche = api.GetSearch(raw_query='f=tweets&l=fr&q={(from:joyeusespaques2) (%23KohLanta2020) OR (%23BlackLivesMatter)}', include_entities=True)
 
-print('Select the feature to use (menu added soon - still in progress) : ')
+#print('Select the feature to use (menu added soon - still in progress) : ')
 
 print('Paste the tweet to analyze : ')
 # lien_tweet = input()                    #type the URL of the tweet
@@ -42,7 +42,7 @@ lien_tweet = 'https://twitter.com/eksansk/status/1272170912360652800' #the algor
 id_tweet = lien_tweet.split("/")[5]  # tweet trim to keep only the ID of the tweet
 obj_tweet = api.GetStatus(id_tweet)  # pull the tweet (as a JSON object)
 scr_name = obj_tweet.user.screen_name  # get the @ of the user that tweeted this
-print(scr_name)
+print("Author of the tweet : @"+scr_name)
 
 # ----------------------------------------- ANALYZING THE AUTHOR
 tweetsUserLouche = DetectHTcomplot(api, scr_name)  # détection si l'utilisateur a déjà tweeté sur des ht théorie complot
@@ -55,8 +55,8 @@ tweetsUserLouche = DetectHTcomplot(api, scr_name)  # détection si l'utilisateur
 # ----------------------------------------- ANALYZING TWEET ITSELF
 filtered_tweet = filterkeywords(obj_tweet.text)  # sending the text tweet into my word filtering function
 print("Scanning french fact checking websites")
-
-results = google_search('La 5G propage le coronavirus', twitter_credentials.GOOGLE_API_KEY, twitter_credentials.GOOGLE_CSE_KEY_SITENEWS, num=10) # querying my google custom search engine that searches in factchecking website
+print(filtered_tweet) #NOTE A MOI MEME : PENSER A ENLEVER LE LIEN HYPER TEXTE
+results = google_search(filtered_tweet, twitter_credentials.GOOGLE_API_KEY, twitter_credentials.GOOGLE_CSE_KEY_SITENEWS, num=10) # querying my google custom search engine that searches in factchecking website
                                                                  #to track if that news has already been marked as fake news
 # for result in results:
 #    pprint.pprint(result)
@@ -69,7 +69,7 @@ else:
 
 # ----------------------------------------- ANALYZING FOLLOWEE'S AUTHOR
 
-followees_object = api_OAuth1.GetFriends(screen_name="Beyonce") #currently under test so I had to force a screen_name of a twitter user with few followINGS
+followees_object = api_OAuth1.GetFriends(screen_name=scr_name) #currently under test so I had to force a screen_name of a twitter user with few followINGS
 followees_array = []
 i = 0
 for followee in followees_object:
