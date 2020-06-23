@@ -1,5 +1,7 @@
 import sys
 import time
+from googleapiclient.discovery import build
+import pprint
 
 def DetectHTcomplot(api, user):
     liste_ht = '%23GrandRemplacement OR %23Soros OR %23BushDid911 OR %23ChinaDidCovid OR %23ChinaDidCovid19 OR %23pizzagates'
@@ -31,3 +33,26 @@ def FolloweesAnalysis(api, list_followees):
     taux = (fakenewser/number_followees)*100
     print('\n Ce compte follow '+str(taux)+'% de compte qui propagent des fake news')
     return taux
+
+
+def google_search(search_term, api_key, cse_id, **kwargs):
+    service = build("customsearch", "v1", developerKey=api_key)
+    res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
+    return res['items']
+
+def filterkeywords (query): #filter the query to keep only the keywords
+    stopwords = ['le', 'la', 'un', 'une', 'au', 'aux', 'les', 'pour', 'sur'] #list of words to be filtered out (in french)
+    querywords = query.split() #spliting the query in list of words
+    resultwords  = [word for word in querywords if word.lower() not in stopwords] #filtering out the words
+    result = ' '.join(resultwords) #
+    return result
+
+def google_search(search_term, api_key, cse_id, **kwargs):
+    service = build("customsearch", "v1", developerKey=api_key)
+    stopwords = ['le', 'la', 'un', 'une', 'au', 'aux', 'les', 'pour']
+    res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
+    #nombre_res = res[searchInformation]
+    if res['searchInformation']['totalResults'] != '0':
+        return res['items']
+    else:
+        return "aucun résultat"

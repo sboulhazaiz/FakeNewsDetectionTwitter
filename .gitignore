@@ -1,1 +1,7 @@
 twitter_credentials.py
+data.json
+*.pyc
+*.pyc
+*.pyc
+__pycache__/twitter_credentials.cpython-38.pyc
+__pycache__/analyze_functions.cpython-38.pyc
